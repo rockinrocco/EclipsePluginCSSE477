@@ -30,17 +30,13 @@ public class WindowPanel {
 		stPanel = new StatusPanel();
 		headPanel = new HeaderPanel();
 		
-		
 		statusLabel = new JLabel("Current Status");
         stPanel.add(statusLabel, BorderLayout.CENTER);
         frame.getContentPane().add(headPanel, BorderLayout.NORTH);
 		frame.getContentPane().add(listPanel, BorderLayout.WEST);
 		frame.getContentPane().add(exPanel, BorderLayout.CENTER);
 		frame.getContentPane().add(stPanel, BorderLayout.SOUTH);
-		
-        
-        
-        
+		                  
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -64,13 +60,24 @@ public class WindowPanel {
 				public void actionPerformed(ActionEvent arg0) {
 					JFileChooser chooser = new JFileChooser();
 				    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				        "Plugin", "txt", "docx");
+				        ".jar", "jar");
 				    chooser.setFileFilter(filter);
 				    int returnVal = chooser.showOpenDialog(frame);
 				    if(returnVal == JFileChooser.APPROVE_OPTION) {
 				       System.out.println("You chose to open this file: " +
 				            chooser.getSelectedFile().getName());
-				       pluginHandler.addPlugin(chooser.getSelectedFile().getPath());
+				       try {
+						pluginHandler.addPlugin(chooser.getSelectedFile().getPath());
+					} catch (InstantiationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				       setStatus("Loading Plugin: "+chooser.getSelectedFile().getPath());
 				    }
 				}
@@ -96,5 +103,8 @@ public class WindowPanel {
 		public ExecutionPanel(){
 			this.setBorder(BorderFactory.createLineBorder(Color.blue));
 		}
+	}
+	public static void updateListPanel(String name) {
+		System.out.println(name);
 	}
 }
