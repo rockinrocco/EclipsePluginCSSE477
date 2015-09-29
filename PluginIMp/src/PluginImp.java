@@ -44,6 +44,8 @@ public class PluginImp extends Plugin{
 	@Override
 	public void resumePlugin() {
 		count = (count + 1) % urls.length;
+		this.updateStatus(getName() + " picture #" + count);
+
 	}
 
 	@Override
@@ -54,7 +56,7 @@ public class PluginImp extends Plugin{
 
 	@Override
 	public void runPlugin() {
-		// TODO Auto-generated method stub
+		this.updateStatus(getName() + " started");
 		
 	}
 

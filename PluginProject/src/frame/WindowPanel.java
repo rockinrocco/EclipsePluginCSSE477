@@ -40,6 +40,7 @@ public class WindowPanel {
 		frame.getContentPane().add(stPanel, BorderLayout.SOUTH);
 		                  
 		frame.pack();
+		frame.validate();
 		frame.setVisible(true);
 	}
 	public static void executePlugin(Plugin plugin) {
@@ -49,6 +50,8 @@ public class WindowPanel {
 	
 	public static void setStatus(String status){
 		statusLabel.setText(status);
+		statusLabel.validate();
+		statusLabel.repaint();
 	}
 	
 	public class HeaderPanel extends JPanel { 
@@ -103,7 +106,7 @@ public class WindowPanel {
 		public ListPanel(){
 			this.setBackground(Color.white);
 			this.setBorder(BorderFactory.createLineBorder(Color.black));
-			
+			this.setSize(400, this.HEIGHT);		
 		}
 
 		public void addButton(Plugin plugin) {
@@ -120,7 +123,6 @@ public class WindowPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(this.plugin.getName());
 				exPanel.startNewPlugin(this.plugin);
 			}
 		}
@@ -163,5 +165,7 @@ public class WindowPanel {
 	
 	public static void listaddButton(Plugin plugin) {
 		listPanel.addButton(plugin);
+		listPanel.validate();
+		listPanel.repaint();
 	}
 }
