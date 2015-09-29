@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.HashSet;
 import java.util.Set;
+import main.Plugin;
 
 import frame.WindowPanel;
 
@@ -17,8 +18,7 @@ public class PluginHandler {
 	public void addPlugin(String filepath) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
 		WindowPanel.listaddButton(filepath);
 		JarClassLoader jarLoader = new JarClassLoader (filepath);
-		Class c;
-		c = jarLoader.loadClass("Plugin",true);
+		Class c = jarLoader.loadClass("PluginImp",true);
 		Object o = c.newInstance();
 		if(o instanceof Plugin)
 		{
@@ -27,6 +27,7 @@ public class PluginHandler {
 			WindowPanel.updateListPanel(plugin.getName());
 		}
 	}
+	
 	public void writeFilePathToText(String filepath) throws IOException{
 		File fout = new File(".\\plugins.txt");
 		FileOutputStream fos = new FileOutputStream(fout);
