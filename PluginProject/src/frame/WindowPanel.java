@@ -51,8 +51,6 @@ public class WindowPanel {
 		statusLabel.setText(status);
 	}
 	
-	
-	
 	public class HeaderPanel extends JPanel { 
 		public HeaderPanel(){
 			this.setBackground(Color.white);
@@ -72,7 +70,7 @@ public class WindowPanel {
 				            chooser.getSelectedFile().getName());
 				       String filePath = chooser.getSelectedFile().getPath();
 				       try {
-				    	   pluginHandler.addPlugin(filePath);
+				    	 pluginHandler.addPlugin(filePath);
 				       } catch (InstantiationException e1) {
 				    	   // TODO Auto-generated catch block
 				    	   e1.printStackTrace();
@@ -82,16 +80,20 @@ public class WindowPanel {
 				       } catch (ClassNotFoundException e1) {
 				    	   // TODO Auto-generated catch block
 				    	   e1.printStackTrace();
-				       }
-				       setStatus("Loading Plugin: "+filePath);
-				       try {
-						pluginHandler.writeFilePathToText(filePath);
 				       } catch (IOException e) {
-				    	   // TODO Auto-generated catch block
-				    	   e.printStackTrace();
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				       setStatus("Loading Plugin: "+filePath);
+					try {
+						pluginHandler.writeFilePathToText(filePath);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+						
 				       }
 				    }
-				}
 				
 			});
 			this.add(loadBtn,BorderLayout.WEST);
@@ -159,9 +161,6 @@ public class WindowPanel {
 		}
 	}
 	
-	public static void updateListPanel(String name) {
-		System.out.println(name);
-	}
 	public static void listaddButton(Plugin plugin) {
 		listPanel.addButton(plugin);
 	}
