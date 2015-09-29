@@ -9,7 +9,6 @@ public abstract class Plugin {
 	private String filepath;
 	private String name;
 	private JLabel statusLabel;
-	private String MessageLogPath = ".\\messagelog.txt";
 	//What other stuff would we need?
 	public boolean isActive = false;
 

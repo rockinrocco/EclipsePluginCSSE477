@@ -5,12 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
 
-import static java.nio.file.StandardWatchEventKinds.*;
 import frame.WindowPanel;
 
 public class Main {

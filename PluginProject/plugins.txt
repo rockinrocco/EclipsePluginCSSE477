@@ -1,1 +1,2 @@
-C:\Users\bliudzpp\Documents\AAASrFall\Soft Arch CSSE477\A6\git\EclipsePluginCSSE477\pluginimp.jar
+C:\Users\roccoma\Desktop\CSSE 477\EclipsePluginCSSE477\motivation.jar
+C:\Users\roccoma\Desktop\CSSE 477\EclipsePluginCSSE477\pluginimp.jar

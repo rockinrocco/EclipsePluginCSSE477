@@ -45,7 +45,6 @@ public class WindowPanel {
 		frame.getContentPane().add(stPanel, BorderLayout.SOUTH);
 		                  
 		frame.pack();
-		frame.validate();
 		frame.setVisible(true);
 	}
 	public static void executePlugin(Plugin plugin) {
@@ -55,9 +54,9 @@ public class WindowPanel {
 	
 	public static void setStatus(String status){
 		statusLabel.setText(status);
-		statusLabel.validate();
-		statusLabel.repaint();
 	}
+	
+	
 	
 	public class HeaderPanel extends JPanel { 
 		public HeaderPanel(){
@@ -80,7 +79,7 @@ public class WindowPanel {
 				            chooser.getSelectedFile().getName());
 				       String filePath = chooser.getSelectedFile().getPath();
 				       try {
-				    	 pluginHandler.addPlugin(filePath);
+				    	   pluginHandler.addPlugin(filePath);
 				       } catch (InstantiationException e1) {
 				    	   // TODO Auto-generated catch block
 				    	   e1.printStackTrace();
@@ -90,20 +89,16 @@ public class WindowPanel {
 				       } catch (ClassNotFoundException e1) {
 				    	   // TODO Auto-generated catch block
 				    	   e1.printStackTrace();
-				       } catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				       }
 				       setStatus("Loading Plugin: "+filePath);
-					try {
+				       try {
 						pluginHandler.writeFilePathToText(filePath);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-						
+				       } catch (IOException e) {
+				    	   // TODO Auto-generated catch block
+				    	   e.printStackTrace();
 				       }
 				    }
+				}
 				
 			});
 			this.add(loadBtn,BorderLayout.WEST);
@@ -113,7 +108,7 @@ public class WindowPanel {
 		public ListPanel(){
 			this.setBackground(Color.white);
 			this.setBorder(BorderFactory.createLineBorder(Color.black));
-			this.setSize(400, this.HEIGHT);		
+			
 		}
 
 		public void addButton(Plugin plugin) {
@@ -185,8 +180,6 @@ public class WindowPanel {
     		}else{
     		}
 			boolean successful = tempFile.renameTo(inputFile);
-			WindowPanel.setStatus("Plugin Removed: "+path);
-			WindowPanel.exPanel.removeAll();
 			big.remove(little);
 			big.repaint();
 		}
@@ -199,6 +192,7 @@ public class WindowPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			System.out.println(this.plugin.getName());
 			exPanel.startNewPlugin(this.plugin);
 		}
 	}
@@ -239,9 +233,10 @@ public class WindowPanel {
 		}
 	}
 	
+	public static void updateListPanel(String name) {
+		System.out.println(name);
+	}
 	public static void listaddButton(Plugin plugin) {
 		listPanel.addButton(plugin);
-		listPanel.validate();
-		listPanel.repaint();
 	}
 }
