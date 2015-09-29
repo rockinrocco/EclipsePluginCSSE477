@@ -30,6 +30,7 @@ public class Main {
 			       pluginHandler.addPlugin(line);
 			    }
 			}
+			fr.close();
 		}
 	}
 }

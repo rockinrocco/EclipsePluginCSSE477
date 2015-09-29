@@ -2,7 +2,12 @@ package frame;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.*;
@@ -57,6 +62,8 @@ public class WindowPanel {
 		public HeaderPanel(){
 			this.setBackground(Color.white);
 			this.setBorder(BorderFactory.createLineBorder(Color.white));
+//			JTextField field = new JTextField("<Plugin Class>");
+//			this.add(field,BorderLayout.WEST);
 			JButton loadBtn = new JButton("Load Plugin");
 			loadBtn.addActionListener(new ActionListener(){
 
@@ -105,23 +112,90 @@ public class WindowPanel {
 		}
 
 		public void addButton(Plugin plugin) {
+			JButton del = new JButton("X");
 			JButton loadBtn = new JButton(plugin.getName());
 			loadBtn.addActionListener(new ListClickAction(plugin));
-			this.add(loadBtn,BorderLayout.WEST);
+			JPanel m = new JPanel();
+			del.addActionListener(new ListDelAction(plugin,this,m));
+			m.setBorder(BorderFactory.createLineBorder(Color.black));
+			m.add(loadBtn,BorderLayout.WEST);
+			m.add(del,BorderLayout.WEST);
+			this.add(m);
 		}
 	}
-		public class ListClickAction implements ActionListener{
-			Plugin plugin;
-			public ListClickAction(Plugin plugin){
-				this.plugin = plugin;
-			}
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(this.plugin.getName());
-				exPanel.startNewPlugin(this.plugin);
-			}
+	public class ListDelAction implements ActionListener{
+		Plugin plugin;
+		JPanel big;
+		JPanel little;
+		public ListDelAction(Plugin plugin,JPanel big,JPanel little){
+			this.plugin = plugin;
+			this.big = big;
+			this.little = little;
 		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String path = plugin.getFilepath();
+			File inputFile = new File(".\\plugins.txt");
+			File tempFile = new File("tmp.txt");
+
+			BufferedReader reader;
+			try {
+				reader = new BufferedReader(new FileReader(inputFile));
+			} catch (FileNotFoundException e1) {
+				return;
+			}
+			BufferedWriter writer;
+			try {
+				writer = new BufferedWriter(new FileWriter(tempFile));
+			} catch (IOException e1) {
+				return;
+			}
+			
+			String currentLine;
+
+			try {
+				while((currentLine = reader.readLine()) != null) {
+				    // trim newline when comparing with lineToRemove
+				    String trimmedLine = currentLine.trim();
+				    if(trimmedLine.equals(path)){
+				    	continue;
+				    }
+				    writer.write(currentLine + System.getProperty("line.separator"));
+				}
+			} catch (IOException e) {
+				return;
+			}
+			try {
+				writer.close();
+			} catch (IOException e) {
+				return;
+			} 
+			try {
+				reader.close();
+			} catch (IOException e) {
+				return;
+			}
+			if(inputFile.delete()){
+    		}else{
+    		}
+			boolean successful = tempFile.renameTo(inputFile);
+			big.remove(little);
+			big.repaint();
+		}
+	}
+	public class ListClickAction implements ActionListener{
+		Plugin plugin;
+		public ListClickAction(Plugin plugin){
+			this.plugin = plugin;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.out.println(this.plugin.getName());
+			exPanel.startNewPlugin(this.plugin);
+		}
+	}
 	
 	
 	public class StatusPanel extends JPanel { 

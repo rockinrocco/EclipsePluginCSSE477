@@ -31,6 +31,12 @@ public abstract class Plugin {
 	public void updateStatus(String status){
 		WindowPanel.setStatus(status);
 	}
+	public String getFilepath(){
+		return this.filepath;
+	}
+	public void setFilepath(String filepath){
+		this.filepath = filepath;
+	}
 
 	public abstract String getName();
 }

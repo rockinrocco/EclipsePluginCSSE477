@@ -22,6 +22,7 @@ public class PluginHandler {
 		if(o instanceof Plugin)
 		{
 			Plugin plugin = (Plugin) o;
+			plugin.setFilepath(filepath);
 			this.pluginSet.add(plugin);
 			WindowPanel.listaddButton(plugin);
 		}
