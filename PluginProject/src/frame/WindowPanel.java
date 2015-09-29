@@ -20,6 +20,7 @@ public class WindowPanel {
 	private static JLabel statusLabel;
 	private static JFrame frame;
 	private PluginHandler pluginHandler;
+	public Plugin curPlugin;
 	
 	public WindowPanel(PluginHandler pluginHandler){
 		this.pluginHandler = pluginHandler;
@@ -42,8 +43,10 @@ public class WindowPanel {
 		frame.setVisible(true);
 	}
 	public static void executePlugin(Plugin plugin) {
-		//TODO: Something with exPanel
+		exPanel.add(plugin.displayPanel());
+		exPanel.repaint();
 	}
+	
 	public static void setStatus(String status){
 		statusLabel.setText(status);
 	}
@@ -101,34 +104,65 @@ public class WindowPanel {
 			
 		}
 
-		public void addButton(String filepath) {
-			JButton loadBtn = new JButton(filepath.substring(filepath.lastIndexOf('\\')+1));
-			loadBtn.addActionListener(new ActionListener(){
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					System.out.println("CLICK");
-				}
-				
-			});
+		public void addButton(Plugin plugin) {
+			JButton loadBtn = new JButton(plugin.getName());
+			loadBtn.addActionListener(new ListClickAction(plugin));
 			this.add(loadBtn,BorderLayout.WEST);
 		}
 	}
+		public class ListClickAction implements ActionListener{
+			Plugin plugin;
+			public ListClickAction(Plugin plugin){
+				this.plugin = plugin;
+			}
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(this.plugin.getName());
+				exPanel.startNewPlugin(this.plugin);
+			}
+		}
+	
+	
 	public class StatusPanel extends JPanel { 
 		public StatusPanel(){
 			this.setBackground(Color.white);
 			this.setBorder(BorderFactory.createLineBorder(Color.red));
 		}
 	}
+	
 	public class ExecutionPanel extends JPanel { 
+		private Plugin currentPlugin;
+		
 		public ExecutionPanel(){
 			this.setBorder(BorderFactory.createLineBorder(Color.blue));
 		}
+		
+		public void startNewPlugin(Plugin newPlugin){
+			if(newPlugin != currentPlugin){
+			if(currentPlugin != null){
+				currentPlugin.pausePlugin();
+			}
+			this.removeAll();
+			if(newPlugin.isActive){
+				newPlugin.resumePlugin();
+			} else {
+			newPlugin.runPlugin();
+			newPlugin.isActive = true;
+			}
+			add(newPlugin.displayPanel());
+			setVisible(true);
+			validate();
+			repaint();
+			currentPlugin = newPlugin;
+		}
+		}
 	}
+	
 	public static void updateListPanel(String name) {
 		System.out.println(name);
 	}
-	public static void listaddButton(String filepath) {
-		listPanel.addButton(filepath);
+	public static void listaddButton(Plugin plugin) {
+		listPanel.addButton(plugin);
 	}
 }

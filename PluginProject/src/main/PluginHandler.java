@@ -11,12 +11,11 @@ import main.Plugin;
 import frame.WindowPanel;
 
 public class PluginHandler {
-	private HashSet<Plugin> pluginSet;
+	public HashSet<Plugin> pluginSet;
 	public PluginHandler(){
 		this.pluginSet = new HashSet<Plugin>();
 	}
 	public void addPlugin(String filepath) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
-		WindowPanel.listaddButton(filepath);
 		JarClassLoader jarLoader = new JarClassLoader (filepath);
 		Class c = jarLoader.loadClass("PluginImp",true);
 		Object o = c.newInstance();
@@ -24,7 +23,7 @@ public class PluginHandler {
 		{
 			Plugin plugin = (Plugin) o;
 			this.pluginSet.add(plugin);
-			WindowPanel.updateListPanel(plugin.getName());
+			WindowPanel.listaddButton(plugin);
 		}
 	}
 	

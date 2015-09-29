@@ -10,6 +10,7 @@ public abstract class Plugin {
 	private String name;
 	private JLabel statusLabel;
 	//What other stuff would we need?
+	public boolean isActive = false;
 
 	public Plugin(){
 	}
@@ -25,9 +26,7 @@ public abstract class Plugin {
 	
 	public abstract void killPlugin();
 	
-	public void runPlugin(){
-		WindowPanel.executePlugin(this);
-	}
+	public abstract void runPlugin();
 	
 	public void updateStatus(String status){
 		WindowPanel.setStatus(status);
