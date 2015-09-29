@@ -100,6 +100,19 @@ public class WindowPanel {
 			this.setBorder(BorderFactory.createLineBorder(Color.black));
 			
 		}
+
+		public void addButton(String filepath) {
+			JButton loadBtn = new JButton(filepath.substring(filepath.lastIndexOf('\\')+1));
+			loadBtn.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					System.out.println("CLICK");
+				}
+				
+			});
+			this.add(loadBtn,BorderLayout.WEST);
+		}
 	}
 	public class StatusPanel extends JPanel { 
 		public StatusPanel(){
@@ -114,5 +127,8 @@ public class WindowPanel {
 	}
 	public static void updateListPanel(String name) {
 		System.out.println(name);
+	}
+	public static void listaddButton(String filepath) {
+		listPanel.addButton(filepath);
 	}
 }

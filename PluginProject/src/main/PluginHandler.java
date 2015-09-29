@@ -15,6 +15,7 @@ public class PluginHandler {
 		this.pluginSet = new HashSet<Plugin>();
 	}
 	public void addPlugin(String filepath) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
+		WindowPanel.listaddButton(filepath);
 		JarClassLoader jarLoader = new JarClassLoader (filepath);
 		Class c;
 		c = jarLoader.loadClass("Plugin",true);

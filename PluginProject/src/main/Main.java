@@ -9,8 +9,11 @@ import java.io.IOException;
 import frame.WindowPanel;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		PluginHandler pluginHandler = new PluginHandler();
+
+		new WindowPanel(pluginHandler);
+		
 		String path = ".\\plugins.txt";
 		File file = new File(path); 
 		if (!file.exists())
@@ -24,10 +27,9 @@ public class Main {
 			    String line;
 			    while ((line = br.readLine()) != null) {
 			       System.out.println(line);
+			       pluginHandler.addPlugin(line);
 			    }
 			}
 		}
-
-		new WindowPanel(pluginHandler);
 	}
 }
