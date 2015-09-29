@@ -11,10 +11,19 @@ public abstract class Plugin {
 	private JLabel statusLabel;
 	//What other stuff would we need?
 
+	public Plugin(){
+	}
+	
 	public void installPlugin(){
 	}
 	
 	public abstract JPanel displayPanel();
+	
+	public abstract void pausePlugin();
+	
+	public abstract void resumePlugin();
+	
+	public abstract void killPlugin();
 	
 	public void runPlugin(){
 		WindowPanel.executePlugin(this);
