@@ -1,5 +1,9 @@
 package main;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,5 +25,12 @@ public class PluginHandler {
 			this.pluginSet.add(plugin);
 			WindowPanel.updateListPanel(plugin.getName());
 		}
+	}
+	public void writeFilePathToText(String filepath) throws IOException{
+		File fout = new File(".\\plugins.txt");
+		FileOutputStream fos = new FileOutputStream(fout);
+		OutputStreamWriter osw = new OutputStreamWriter(fos);
+		osw.write(filepath);
+	 	osw.close();
 	}
 }

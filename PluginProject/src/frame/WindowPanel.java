@@ -3,6 +3,7 @@ package frame;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -66,19 +67,26 @@ public class WindowPanel {
 				    if(returnVal == JFileChooser.APPROVE_OPTION) {
 				       System.out.println("You chose to open this file: " +
 				            chooser.getSelectedFile().getName());
+				       String filePath = chooser.getSelectedFile().getPath();
 				       try {
-						pluginHandler.addPlugin(chooser.getSelectedFile().getPath());
-					} catch (InstantiationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				       setStatus("Loading Plugin: "+chooser.getSelectedFile().getPath());
+				    	   pluginHandler.addPlugin(filePath);
+				       } catch (InstantiationException e1) {
+				    	   // TODO Auto-generated catch block
+				    	   e1.printStackTrace();
+				       } catch (IllegalAccessException e1) {
+				    	   // TODO Auto-generated catch block
+				    	   e1.printStackTrace();
+				       } catch (ClassNotFoundException e1) {
+				    	   // TODO Auto-generated catch block
+				    	   e1.printStackTrace();
+				       }
+				       setStatus("Loading Plugin: "+filePath);
+				       try {
+						pluginHandler.writeFilePathToText(filePath);
+				       } catch (IOException e) {
+				    	   // TODO Auto-generated catch block
+				    	   e.printStackTrace();
+				       }
 				    }
 				}
 				
